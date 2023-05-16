@@ -16,10 +16,15 @@ class _MyApp extends StatelessWidget {
       home: Scaffold(
         body: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: const [
+          children: [
             CustomTextFormField(
-              onchanged: null,
+              onchanged: (String value) {},
               hintText: '이메일을 입력해주세요',
+            ),
+            CustomTextFormField(
+              onchanged: (String value) {},
+              obscureText: true,
+              hintText: '비밀번호를 입력해주세요',
             ),
           ],
         ),
