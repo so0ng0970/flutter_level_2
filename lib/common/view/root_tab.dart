@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_level_2/common/const/color.dart';
 import 'package:flutter_level_2/common/layout/default_layout.dart';
+import 'package:flutter_level_2/common/restaurant/view/restaurant_screen.dart';
 
 class RootTab extends StatefulWidget {
   const RootTab({super.key});
@@ -77,7 +78,7 @@ class _RootTabState extends State<RootTab> with SingleTickerProviderStateMixin {
         children: [
           Center(
             child: Container(
-              child: const Text('홈'),
+              child: const RestaurantScreen(),
             ),
           ),
           Center(
