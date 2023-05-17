@@ -1,14 +1,23 @@
 import 'dart:convert';
 import 'dart:io';
-
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_level_2/common/component/custom_text_form_field.dart';
 import 'package:flutter_level_2/common/const/color.dart';
+import 'package:flutter_level_2/common/const/data.dart';
 import 'package:flutter_level_2/common/layout/default_layout.dart';
+import 'package:flutter_level_2/common/view/root_tab.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
+
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  String username = '';
+  String password = '';
 
   @override
   Widget build(BuildContext context) {
@@ -43,21 +52,25 @@ class LoginScreen extends StatelessWidget {
                   height: 280,
                 ),
                 CustomTextFormField(
-                  onchanged: (String value) {},
                   hintText: '이메일을 입력해주세요',
+                  onchanged: (String value) {
+                    username = value;
+                  },
                 ),
                 const SizedBox(
                   height: 20,
                 ),
                 CustomTextFormField(
-                  onchanged: (String value) {},
+                  onchanged: (String value) {
+                    password = value;
+                  },
                   obscureText: true,
                   hintText: '비밀번호를 입력해주세요',
                 ),
                 ElevatedButton(
                   onPressed: () async {
                     // ID:비밀번호
-                    const rawString = 'test@codefactory.ai:testtest';
+                    final rawString = '$username:$password';
 
                     Codec<String, String> stringToBase64 = utf8.fuse(base64);
 
@@ -69,7 +82,19 @@ class LoginScreen extends StatelessWidget {
                         headers: {'authorization': 'Basic $token'},
                       ),
                     );
-                    print(resp.data);
+                    final refreshToken = resp.data['refreshToken'];
+                    final accesstoken = resp.data['accessToken'];
+
+                    await storage.write(
+                        key: REFRESH_TOKEN_KEY, value: refreshToken);
+                    await storage.write(
+                        key: ACCESS_TOKEN_KEY, value: accesstoken);
+
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (_) => const RootTab(),
+                      ),
+                    );
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: PRIMARY_COLOR,
