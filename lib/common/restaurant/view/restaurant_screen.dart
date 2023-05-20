@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_level_2/common/const/data.dart';
-import 'package:flutter_level_2/common/restaurant/component/restaurant_cart.dart';
+import 'package:flutter_level_2/common/restaurant/component/restaurant_card.dart';
 import 'package:flutter_level_2/common/restaurant/model/restaurant_model.dart';
 import 'package:flutter_level_2/common/restaurant/view/restaurant_detail_screen.dart';
 
@@ -47,7 +47,9 @@ class RestaurantScreen extends StatelessWidget {
                       Navigator.of(context).push(
                         MaterialPageRoute(
                           builder: (_) {
-                            return const RestaurantDetailScreen();
+                            return RestaurantDetailScreen(
+                              id: pItem.id,
+                            );
                           },
                         ),
                       );
