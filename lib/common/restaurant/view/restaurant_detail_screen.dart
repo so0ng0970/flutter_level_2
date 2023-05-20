@@ -9,8 +9,10 @@ import '../../const/data.dart';
 
 class RestaurantDetailScreen extends StatelessWidget {
   final String id;
+  final String title;
 
   const RestaurantDetailScreen({
+    required this.title,
     required this.id,
     super.key,
   });
@@ -33,7 +35,7 @@ class RestaurantDetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DefaultLayout(
-      title: '불타는 떡볶이',
+      title: title,
       child: FutureBuilder<Map<String, dynamic>>(
         future: getRestaurantDetail(),
         builder: (_, snapshot) {
