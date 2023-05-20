@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_level_2/common/layout/default_layout.dart';
 import 'package:flutter_level_2/common/restaurant/component/restaurant_cart.dart';
+import 'package:flutter_level_2/product/component/product_card.dart';
 
 class RestaurantDetailScreen extends StatelessWidget {
   const RestaurantDetailScreen({super.key});
@@ -21,7 +22,15 @@ class RestaurantDetailScreen extends StatelessWidget {
             ratings: 4.76,
             isDetail: true,
             detail: '너무 맛있어요',
-          )
+          ),
+          const SingleChildScrollView(
+            child: Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal: 16.0,
+              ),
+              child: ProductCard(),
+            ),
+          ),
         ],
       ),
     );
