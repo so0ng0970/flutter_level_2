@@ -1,6 +1,5 @@
+import 'package:flutter_level_2/common/utils/data_utils.dart';
 import 'package:json_annotation/json_annotation.dart';
-
-import '../../const/data.dart';
 
 part 'restaurant_model.g.dart';
 
@@ -15,7 +14,7 @@ class RestaurantModel {
   final String id;
   final String name;
   @JsonKey(
-    fromJson: pathToUrl,
+    fromJson: DataUtils.pathToUrl,
   )
   final String thumbUrl;
   final List<String> tags;
@@ -40,8 +39,4 @@ class RestaurantModel {
       _$RestaurantModelFromJson(json);
 
   Map<String, dynamic> toJson() => _$RestaurantModelToJson(this);
-
-  static pathToUrl(String value) {
-    return 'http://$ip$value}';
-  }
 }
