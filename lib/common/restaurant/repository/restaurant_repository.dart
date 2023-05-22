@@ -7,12 +7,13 @@ part 'restaurant_repository.g.dart';
 @RestApi()
 abstract class RestaurantRepository {
   // http://$ip/restaurant
-  factory RestaurantRepository(Dio dio, {String basesUrl}) =
+  factory RestaurantRepository(Dio dio, {required String baseUrl}) =
       _RestaurantRepository;
 
   // http://$ip/restaurant/
-  // @GET('/')
-  // paginate();
+  @GET('/')
+  Future paginate<RestaurantModel>();
+
   // http://$ip/restaurant/:id/
   @GET('/{id}')
   @Headers({

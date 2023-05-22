@@ -19,6 +19,28 @@ class _RestaurantRepository implements RestaurantRepository {
   String? baseUrl;
 
   @override
+  Future<dynamic> paginate<RestaurantModel>() async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final Map<String, dynamic>? _data = null;
+    final _result = await _dio.fetch(_setStreamType<dynamic>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+        .compose(
+          _dio.options,
+          '/',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = _result.data;
+    return value;
+  }
+
+  @override
   Future<RestaurantDetailModel> getRestaurantDetail({required id}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
