@@ -23,10 +23,11 @@ class RestaurantDetailScreen extends StatelessWidget {
     final dio = Dio();
 
     dio.interceptors.add(
-      CustomInterceptor(),
+      CustomInterceptor(storage: storage),
     );
     final respository =
         RestaurantRepository(dio, baseUrl: 'http://$ip/restaurant');
+
     return respository.getRestaurantDetail(id: id);
   }
 
