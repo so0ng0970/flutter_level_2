@@ -88,5 +88,6 @@ class CustomInterceptor extends Interceptor {
         return handler.reject(e);
       }
     }
+    return handler.reject(err);
   }
 }
