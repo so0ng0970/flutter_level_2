@@ -12,4 +12,6 @@ class PaginaitionParams {
 
   factory PaginaitionParams.fromJson(Map<String, dynamic> json) =>
       _$PaginaitionParamsFromJson(json);
+
+  Map<String, dynamic> toJson() => _$PaginaitionParamsToJson(this);
 }
