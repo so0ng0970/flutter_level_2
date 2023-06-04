@@ -9,7 +9,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../product/component/product_card.dart';
 
-class RestaurantDetailScreen extends ConsumerWidget {
+class RestaurantDetailScreen extends ConsumerStatefulWidget {
   final String id;
   final String title;
 
@@ -20,8 +20,25 @@ class RestaurantDetailScreen extends ConsumerWidget {
   });
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(restaurantDetailProvider(id));
+  ConsumerState<RestaurantDetailScreen> createState() =>
+      _RestaurantDetailScreenState();
+}
+
+class _RestaurantDetailScreenState
+    extends ConsumerState<RestaurantDetailScreen> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    ref.read(restaurantProvider.notifier).getDetail(id: widget.id);
+  }
+
+  @override
+  Widget build(
+    BuildContext context,
+  ) {
+    final state = ref.watch(restaurantDetailProvider(widget.id));
     if (state == null) {
       return const DefaultLayout(
         child: Center(
@@ -31,11 +48,13 @@ class RestaurantDetailScreen extends ConsumerWidget {
     }
 
     return DefaultLayout(
-      title: title,
+      title: widget.title,
       child: CustomScrollView(
         slivers: [
           renderTop(model: state),
-          renderLable(),
+          if (state is RestaurantDetailModel) renderLable(),
+          if (state is RestaurantDetailModel)
+            renderProducts(products: state.products),
         ],
       ),
     );
