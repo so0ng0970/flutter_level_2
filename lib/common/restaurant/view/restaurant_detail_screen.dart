@@ -6,6 +6,7 @@ import 'package:flutter_level_2/common/restaurant/model/restaurant_detail_model.
 import 'package:flutter_level_2/common/restaurant/model/restaurant_model.dart';
 import 'package:flutter_level_2/common/restaurant/provider/restaurant_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:skeletons/skeletons.dart';
 
 import '../../../product/component/product_card.dart';
 
@@ -52,10 +53,34 @@ class _RestaurantDetailScreenState
       child: CustomScrollView(
         slivers: [
           renderTop(model: state),
+          // 로딩중일때
+          if (state is! RestaurantDetailModel) renderLoading(),
           if (state is RestaurantDetailModel) renderLable(),
           if (state is RestaurantDetailModel)
             renderProducts(products: state.products),
         ],
+      ),
+    );
+  }
+
+  SliverPadding renderLoading() {
+    return SliverPadding(
+      padding: const EdgeInsets.symmetric(
+        horizontal: 16.0,
+      ),
+      sliver: SliverList(
+        delegate: SliverChildListDelegate(
+          List.generate(
+            3,
+            (index) => Padding(
+              padding: const EdgeInsets.only(bottom: 32.0),
+              child: SkeletonParagraph(
+                style: const SkeletonParagraphStyle(
+                    lines: 5, padding: EdgeInsets.zero),
+              ),
+            ),
+          ),
+        ),
       ),
     );
   }
