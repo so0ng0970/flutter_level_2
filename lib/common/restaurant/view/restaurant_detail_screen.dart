@@ -66,6 +66,7 @@ class _RestaurantDetailScreenState
   SliverPadding renderLoading() {
     return SliverPadding(
       padding: const EdgeInsets.symmetric(
+        vertical: 16.0,
         horizontal: 16.0,
       ),
       sliver: SliverList(
