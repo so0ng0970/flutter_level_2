@@ -5,6 +5,7 @@ import 'package:flutter_level_2/common/restaurant/component/restaurant_card.dart
 import 'package:flutter_level_2/common/restaurant/model/restaurant_detail_model.dart';
 import 'package:flutter_level_2/common/restaurant/model/restaurant_model.dart';
 import 'package:flutter_level_2/common/restaurant/provider/restaurant_provider.dart';
+import 'package:flutter_level_2/rating/component/rating_card.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:skeletons/skeletons.dart';
 
@@ -58,6 +59,20 @@ class _RestaurantDetailScreenState
           if (state is RestaurantDetailModel) renderLable(),
           if (state is RestaurantDetailModel)
             renderProducts(products: state.products),
+          const SliverPadding(
+            padding: EdgeInsets.symmetric(
+              horizontal: 16.0,
+            ),
+            sliver: SliverToBoxAdapter(
+              child: RatingCard(
+                rating: 3,
+                email: 'soonger@soonger.com',
+                image: [],
+                avatarImage: AssetImage('asset/img/logo/dog.jpg'),
+                content: '맛있습니다',
+              ),
+            ),
+          )
         ],
       ),
     );
