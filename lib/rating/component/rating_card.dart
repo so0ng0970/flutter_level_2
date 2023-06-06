@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_level_2/common/const/color.dart';
+import 'package:collection/collection.dart';
 
 class RatingCard extends StatelessWidget {
   // network image, asset image
@@ -7,7 +8,7 @@ class RatingCard extends StatelessWidget {
   // circleAvatar
   final ImageProvider avatarImage;
   // 리스트로 위젯 이미지를 보여줄때
-  final List<Image> image;
+  final List<Image> images;
   // 별점
   final int rating;
   // 이메일
@@ -17,7 +18,7 @@ class RatingCard extends StatelessWidget {
   const RatingCard({
     super.key,
     required this.avatarImage,
-    required this.image,
+    required this.images,
     required this.rating,
     required this.email,
     required this.content,
@@ -38,7 +39,14 @@ class RatingCard extends StatelessWidget {
         _Body(
           content: content,
         ),
-        const _Image(),
+        if (images.isNotEmpty)
+          // 높이 지정 해줘야함
+          SizedBox(
+            height: 100,
+            child: _Image(
+              images: images,
+            ),
+          ),
       ],
     );
   }
@@ -115,10 +123,29 @@ class _Body extends StatelessWidget {
 }
 
 class _Image extends StatelessWidget {
-  const _Image();
+  final List<Image> images;
+  const _Image({
+    required this.images,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return ListView(
+      // 좌우
+      scrollDirection: Axis.horizontal,
+      children: images
+          .mapIndexed(
+            (index, e) => Padding(
+              padding: EdgeInsets.only(
+                right: index == images.length - 1 ? 0 : 16.0,
+              ),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(8.0),
+                child: e,
+              ),
+            ),
+          )
+          .toList(),
+    );
   }
 }

@@ -67,7 +67,7 @@ class _RestaurantDetailScreenState
               child: RatingCard(
                 rating: 3,
                 email: 'soonger@soonger.com',
-                image: [],
+                images: [],
                 avatarImage: AssetImage('asset/img/logo/dog.jpg'),
                 content: '맛있습니다',
               ),
