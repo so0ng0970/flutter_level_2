@@ -3,6 +3,7 @@ import 'package:flutter_level_2/common/model/cursor_pagination_model.dart';
 import 'package:flutter_level_2/common/restaurant/component/restaurant_card.dart';
 import 'package:flutter_level_2/common/restaurant/provider/restaurant_provider.dart';
 import 'package:flutter_level_2/common/restaurant/view/restaurant_detail_screen.dart';
+import 'package:flutter_level_2/common/utils/pagination_utils.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class RestaurantScreen extends ConsumerStatefulWidget {
@@ -22,13 +23,19 @@ class _RestaurantScreenState extends ConsumerState<RestaurantScreen> {
   }
 
   void scrollerListner() async {
+    PaginationUtils.paginate(
+      controller: controller,
+      provider: ref.read(
+        restaurantProvider.notifier,
+      ),
+    );
     // 현재 위치가 최대 길이보다 조금 덜되는 위치까지 왔다면
     // 새로운 데이터를 추가요청
-    if (controller.offset > controller.position.maxScrollExtent - 300) {
-      ref.read(restaurantProvider.notifier).paginate(
-            fetchMore: true,
-          );
-    }
+    // if (controller.offset > controller.position.maxScrollExtent - 300) {
+    //   ref.read(restaurantProvider.notifier).paginate(
+    //         fetchMore: true,
+    //       );
+    // }
   }
 
   @override
@@ -51,7 +58,7 @@ class _RestaurantScreenState extends ConsumerState<RestaurantScreen> {
 
     // cursorPagination
     // cursorPaginationFetchingMore
-    // cursorPaginationRefetching 
+    // cursorPaginationRefetching
     final cp = data as CursorPagination;
 
     return Padding(

@@ -54,10 +54,13 @@ class RatingCard extends StatelessWidget {
         ),
         if (images.isNotEmpty)
           // 높이 지정 해줘야함
-          SizedBox(
-            height: 100,
-            child: _Image(
-              images: images,
+          Padding(
+            padding: const EdgeInsets.only(top: 8.0),
+            child: SizedBox(
+              height: 100,
+              child: _Image(
+                images: images,
+              ),
             ),
           ),
       ],

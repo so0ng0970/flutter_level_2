@@ -6,6 +6,7 @@ import 'package:flutter_level_2/common/restaurant/component/restaurant_card.dart
 import 'package:flutter_level_2/common/restaurant/model/restaurant_detail_model.dart';
 import 'package:flutter_level_2/common/restaurant/model/restaurant_model.dart';
 import 'package:flutter_level_2/common/restaurant/provider/restaurant_provider.dart';
+import 'package:flutter_level_2/common/utils/pagination_utils.dart';
 import 'package:flutter_level_2/rating/component/rating_card.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:skeletons/skeletons.dart';
@@ -31,12 +32,24 @@ class RestaurantDetailScreen extends ConsumerStatefulWidget {
 
 class _RestaurantDetailScreenState
     extends ConsumerState<RestaurantDetailScreen> {
+  final ScrollController controller = ScrollController();
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
 
     ref.read(restaurantProvider.notifier).getDetail(id: widget.id);
+    controller.addListener(listener);
+  }
+
+  void listener() {
+    PaginationUtils.paginate(
+      controller: controller,
+      provider: ref.read(
+        restaurantRatingProvider(widget.id).notifier,
+      ),
+    );
   }
 
   @override
@@ -57,6 +70,7 @@ class _RestaurantDetailScreenState
     return DefaultLayout(
       title: widget.title,
       child: CustomScrollView(
+        controller: controller,
         slivers: [
           renderTop(model: state),
           // 로딩중일때
@@ -64,6 +78,7 @@ class _RestaurantDetailScreenState
           if (state is RestaurantDetailModel) renderLable(),
           if (state is RestaurantDetailModel)
             renderProducts(products: state.products),
+
           if (ratingState is CursorPagination<RatingModel>)
             renderRatings(
               models: ratingState.data,
@@ -80,7 +95,7 @@ class _RestaurantDetailScreenState
     return SliverPadding(
       padding: const EdgeInsets.symmetric(
         horizontal: 16.0,
-        vertical: 16.0,
+        vertical: 30.0,
       ),
       sliver: SliverList(
         delegate: SliverChildBuilderDelegate(
