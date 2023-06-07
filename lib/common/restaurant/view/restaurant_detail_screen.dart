@@ -10,6 +10,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:skeletons/skeletons.dart';
 
 import '../../../product/component/product_card.dart';
+import '../provider/restaurant_rating_provider.dart';
 
 class RestaurantDetailScreen extends ConsumerStatefulWidget {
   final String id;
@@ -41,6 +42,8 @@ class _RestaurantDetailScreenState
     BuildContext context,
   ) {
     final state = ref.watch(restaurantDetailProvider(widget.id));
+    final ratingState = ref.watch(restaurantRatingProvider(widget.id));
+
     if (state == null) {
       return const DefaultLayout(
         child: Center(

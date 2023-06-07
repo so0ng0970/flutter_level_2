@@ -2,12 +2,10 @@ import 'package:flutter_level_2/common/model/cursor_pagination_model.dart';
 import 'package:flutter_level_2/common/model/model_with_id.dart';
 import 'package:flutter_level_2/common/model/pagination_params.dart';
 import 'package:flutter_level_2/common/repository/base_pagination_repository.dart';
-import 'package:flutter_level_2/common/restaurant/model/restaurant_model.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class PaginationProvider<
-T extends IModelWithId,
-U extends IBasePaginationRepository<T>>
+class PaginationProvider<T extends IModelWithId,
+        U extends IBasePaginationRepository<T>>
     extends StateNotifier<CursorPaginationBase> {
   final U repository;
 
@@ -15,7 +13,10 @@ U extends IBasePaginationRepository<T>>
     required this.repository,
   }) : super(
           CursorPaginationLoading(),
-        );
+        ) {
+    paginate();
+  }
+
   Future<void> paginate({
     int fetchCount = 20,
     // true
@@ -108,33 +109,10 @@ U extends IBasePaginationRepository<T>>
       } else {
         state = resp;
       }
-    } catch (e) {
+    } catch (e, stack) {
+      print(e);
+      print(stack);
       state = CursorPaginationError(message: '데이터를 불러오지 못했습니다');
     }
-  }
-
-  void getDetail({
-    required String id,
-  }) async {
-    // 만약에 아직 데이터가 하나도 없는 상태라면 (cursirPagination이 아니라면)
-    // 데이터를 가져오는 시도를 한다
-    if (state is! CursorPagination) {
-      await paginate();
-    }
-
-    // state가 CursorPagination이 아닐때 그냥 리턴
-    if (state is! CursorPagination) {
-      return;
-    }
-    final pState = state as CursorPagination;
-
-    final resp = await repository.getRestaurantDetail(id: id);
-    state = pState.copyWith(
-      data: pState.data
-          .map<RestaurantModel>(
-            (e) => e.id == id ? resp : e,
-          )
-          .toList(),
-    );
   }
 }
