@@ -40,5 +40,6 @@ class RestaurantModel implements IModelWithId {
   factory RestaurantModel.fromJson(Map<String, dynamic> json) =>
       _$RestaurantModelFromJson(json);
 
+ // 현재 인스턴스를 변환 ,json 으로 instance 변환 하는 것  
   Map<String, dynamic> toJson() => _$RestaurantModelToJson(this);
 }
