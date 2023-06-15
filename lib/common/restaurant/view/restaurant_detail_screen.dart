@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:flutter_level_2/common/layout/default_layout.dart';
 import 'package:flutter_level_2/common/model/cursor_pagination_model.dart';
 import 'package:flutter_level_2/common/restaurant/component/restaurant_card.dart';
@@ -10,7 +9,6 @@ import 'package:flutter_level_2/common/utils/pagination_utils.dart';
 import 'package:flutter_level_2/rating/component/rating_card.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:skeletons/skeletons.dart';
-
 import '../../../product/component/product_card.dart';
 import '../../../rating/model/rating_model.dart';
 import '../provider/restaurant_rating_provider.dart';
@@ -36,7 +34,6 @@ class _RestaurantDetailScreenState
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
 
     ref.read(restaurantProvider.notifier).getDetail(id: widget.id);
@@ -165,7 +162,7 @@ class _RestaurantDetailScreenState
               padding: const EdgeInsets.only(
                 top: 16.0,
               ),
-              child: ProductCard.fromModel(
+              child: ProductCard.fromRestaurantProductModel(
                 model: model,
               ),
             );
