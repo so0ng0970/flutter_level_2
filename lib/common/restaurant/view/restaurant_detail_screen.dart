@@ -15,10 +15,10 @@ import '../provider/restaurant_rating_provider.dart';
 
 class RestaurantDetailScreen extends ConsumerStatefulWidget {
   final String id;
-  final String title;
+  final String? title;
 
   const RestaurantDetailScreen({
-    required this.title,
+    this.title,
     required this.id,
     super.key,
   });
