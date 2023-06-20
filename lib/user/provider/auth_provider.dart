@@ -52,6 +52,11 @@ class AuthProvider extends ChangeNotifier {
         ),
       ];
 
+  void logout() {
+    ref.read(userMeProvider.notifier).logout();
+    notifyListeners();
+  }
+
 // splaxh Screen
 // 앱을 처음 시작했을때
 // 토큰이 존재하는지 확인하고
