@@ -10,14 +10,11 @@ import '../../common/model/token_response.dart';
 final authRepositoryProvider = Provider<AuthRepository>((ref) {
   final dio = ref.watch(dioProvider);
 
-  return AuthRepository(
-    baseUrl: 'https://$ip/auth',
-    dio: dio,
-  );
+  return AuthRepository(baseUrl: 'http://$ip/auth', dio: dio);
 });
 
 class AuthRepository {
-  // 'http://$ip/auth'
+  // http://$ip/auth
   final String baseUrl;
   final Dio dio;
 
@@ -25,19 +22,22 @@ class AuthRepository {
     required this.baseUrl,
     required this.dio,
   });
+
   Future<LoginResponse> login({
     required String username,
     required String password,
   }) async {
-    final serialized = DataUtils.plainToBase64(
-      '$username:$password',
-    );
+    final serialized = DataUtils.plainToBase64('$username:$password');
+
     final resp = await dio.post(
       '$baseUrl/login',
       options: Options(
-        headers: {'authorization': 'Basic $serialized'},
+        headers: {
+          'authorization': 'Basic $serialized',
+        },
       ),
     );
+
     return LoginResponse.fromJson(
       resp.data,
     );
@@ -52,8 +52,7 @@ class AuthRepository {
         },
       ),
     );
-    return TokenResponse.fromJson(
-      resp.data,
-    );
+
+    return TokenResponse.fromJson(resp.data);
   }
 }

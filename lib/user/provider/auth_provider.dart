@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_level_2/common/restaurant/view/restaurant_detail_screen.dart';
 import 'package:flutter_level_2/common/view/root_tab.dart';
+import 'package:flutter_level_2/common/view/splash_screen.dart';
 import 'package:flutter_level_2/user/model/user_model.dart';
 import 'package:flutter_level_2/user/provider/user_me_provider.dart';
 import 'package:flutter_level_2/user/view/login_screen.dart';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-
-import '../view/splash_screen.dart';
 
 final authProvider = ChangeNotifierProvider<AuthProvider>((ref) {
   return AuthProvider(ref: ref);
@@ -73,7 +73,7 @@ class AuthProvider extends ChangeNotifier {
     // 로그인 중이거나 현재 위치가 splashScreen
     // 홈으로 이동
     if (user is UserModel) {
-      return loginIn == ' /splash' ? '/' : null;
+      return loginIn || state.location == '/splash' ? '/' : null;
     }
 
     // userModelError
