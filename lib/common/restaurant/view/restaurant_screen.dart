@@ -4,6 +4,7 @@ import 'package:flutter_level_2/common/restaurant/component/restaurant_card.dart
 import 'package:flutter_level_2/common/restaurant/provider/restaurant_provider.dart';
 import 'package:flutter_level_2/common/restaurant/view/restaurant_detail_screen.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 class RestaurantScreen extends ConsumerStatefulWidget {
   const RestaurantScreen({super.key});
@@ -23,15 +24,11 @@ class _RestaurantScreenState extends ConsumerState<RestaurantScreen> {
         itemBuilder: <RestaurantModel>(_, index, model) {
           return GestureDetector(
             onTap: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (_) {
-                    return RestaurantDetailScreen(
-                      title: model.name,
-                      id: model.id,
-                    );
-                  },
-                ),
+              context.goNamed(
+                RestaurantDetailScreen.routeName,
+                pathParameters: {
+                  'rid': model.id,
+                },
               );
             },
             child: RestaurantCard.fromModel(
