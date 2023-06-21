@@ -13,7 +13,7 @@ class BasketItemModel {
     required this.product,
     required this.count,
   });
-
+  // BasketItemModel
   BasketItemModel copyWith({ProductModel? product, int? count}) {
     return BasketItemModel(
         product: product ?? this.product, count: count ?? this.count);
