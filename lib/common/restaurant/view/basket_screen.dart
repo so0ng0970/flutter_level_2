@@ -13,16 +13,13 @@ class BasketScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final basket = ref.watch(basketProvider);
     if (basket.isEmpty) {
-      return DefaultLayout(
+      return const DefaultLayout(
         title: '장바구니',
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: const [
-            Text(
-              '장바구니가 비어있습니다',
-              textAlign: TextAlign.center,
-            ),
-          ],
+        child: Center(
+          child: Text(
+            '장바구니가 비어있습니다',
+            textAlign: TextAlign.center,
+          ),
         ),
       );
     }
