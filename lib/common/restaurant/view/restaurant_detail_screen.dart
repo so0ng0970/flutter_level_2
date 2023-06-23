@@ -11,11 +11,14 @@ import 'package:flutter_level_2/product/model/product_model.dart';
 import 'package:flutter_level_2/rating/component/rating_card.dart';
 import 'package:flutter_level_2/user/provider/basket_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:skeletons/skeletons.dart';
 import '../../../product/component/product_card.dart';
 import '../../../rating/model/rating_model.dart';
 import '../provider/restaurant_rating_provider.dart';
 import 'package:badges/badges.dart' as badges;
+
+import 'basket_screen.dart';
 
 class RestaurantDetailScreen extends ConsumerStatefulWidget {
   static String get routeName => 'restaurantDetail';
@@ -75,7 +78,9 @@ class _RestaurantDetailScreenState
       title: widget.title,
       floatingActionButton: FloatingActionButton(
         backgroundColor: PRIMARY_COLOR,
-        onPressed: () {},
+        onPressed: () {
+          context.pushNamed(BasketScreen.routeName);
+        },
         child: badges.Badge(
           showBadge: basket.isNotEmpty,
           badgeContent: Text(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_level_2/common/restaurant/view/basket_screen.dart';
 import 'package:flutter_level_2/common/restaurant/view/restaurant_detail_screen.dart';
 import 'package:flutter_level_2/common/view/root_tab.dart';
 import 'package:flutter_level_2/common/view/splash_screen.dart';
@@ -50,6 +51,10 @@ class AuthProvider extends ChangeNotifier {
             ),
           ],
         ),
+        GoRoute(
+            path: '/basket',
+            name: BasketScreen.routeName,
+            builder: (context, state) => const BasketScreen()),
       ];
 
   void logout() {

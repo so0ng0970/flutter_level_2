@@ -4,12 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_level_2/common/const/color.dart';
 import 'package:flutter_level_2/common/restaurant/model/restaurant_detail_model.dart';
 import 'package:flutter_level_2/product/model/product_model.dart';
+import 'package:flutter_level_2/user/provider/basket_provider.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class ProductCard extends StatelessWidget {
+class ProductCard extends ConsumerWidget {
   final Image image;
   final String name;
   final String detail;
   final int price;
+  final String id;
   final VoidCallback? onSubtract;
   final VoidCallback? onAdd;
 
@@ -17,6 +20,7 @@ class ProductCard extends StatelessWidget {
     Key? key,
     this.onSubtract,
     this.onAdd,
+    required this.id,
     required this.image,
     required this.name,
     required this.detail,
@@ -29,6 +33,7 @@ class ProductCard extends StatelessWidget {
     VoidCallback? onAdd,
   }) {
     return ProductCard(
+      id: model.id,
       image: Image.network(
         model.imgUrl,
         width: 110,
@@ -45,8 +50,11 @@ class ProductCard extends StatelessWidget {
 
   factory ProductCard.fromRestaurantProductModel({
     required RestaurantProductModel model,
+    final VoidCallback? onSubtract,
+    final VoidCallback? onAdd,
   }) {
     return ProductCard(
+      id: model.id,
       image: Image.network(
         model.imgUrl,
         width: 110,
@@ -56,11 +64,15 @@ class ProductCard extends StatelessWidget {
       name: model.name,
       detail: model.detail,
       price: model.price,
+      onSubtract: onSubtract,
+      onAdd: onAdd,
     );
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final basket = ref.watch(basketProvider);
+
     // IntrinsicHeight - 내부에 있는 위젯들이 최대크기인 위젯만큼 차지하게 해준다
     return Column(
       children: [
@@ -111,8 +123,10 @@ class ProductCard extends StatelessWidget {
           _Footer(
             onSubtract: onSubtract!,
             onAdd: onAdd!,
-            count: count,
-            total: total,
+            count: basket.firstWhere((e) => e.product.id == id).count,
+            total: (basket.firstWhere((e) => e.product.id == id).count *
+                    basket.firstWhere((e) => e.product == id).product.price)
+                .toString(),
           ),
       ],
     );
