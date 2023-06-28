@@ -5,12 +5,17 @@ import 'package:flutter_level_2/order/model/post_order_body.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:retrofit/retrofit.dart';
 
+import '../../common/const/data.dart';
+
 part 'order_repository.g.dart';
 
-final OrderRepositoryProvider = Provider<OrderRepository>((ref) {
+final orderRepositoryProvider = Provider<OrderRepository>((ref) {
   final dio = ref.watch(dioProvider);
 
-  return OrderRepository(dio);
+  return OrderRepository(
+    dio,
+    baseUrl: 'http://$ip/order',
+  );
 });
 
 // http://$ip/order
