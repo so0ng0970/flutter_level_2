@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_level_2/common/layout/default_layout.dart';
+import 'package:flutter_level_2/common/component/pagination_list_view.dart';
+import 'package:flutter_level_2/order/component/order_card.dart';
+import 'package:flutter_level_2/order/model/order_model.dart';
+import 'package:flutter_level_2/order/provider/order_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class OrderScreen extends ConsumerWidget {
@@ -7,14 +10,13 @@ class OrderScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return DefaultLayout(
-      child: Container(
-        child: const Center(
-          child: Text(
-            '주문',
-          ),
-        ),
-      ),
+    return PaginationListView<OrderModel>(
+      provider: orderProvider,
+      itemBuilder: <OrderModel>(_, index, model) {
+        return OrderCard.fromModel(
+          model: model,
+        );
+      },
     );
   }
 }

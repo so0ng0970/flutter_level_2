@@ -22,7 +22,7 @@ class OrderCard extends StatelessWidget {
   factory OrderCard.fromModel({required OrderModel model}) {
     final productDetail = model.products.length < 2
         ? model.products.first.product.name
-        : '${model.products.first.product.name} 외 ${model.products.length - 1}}';
+        : '${model.products.first.product.name} 외 ${model.products.length - 1}개';
 
     return OrderCard(
       orderDate: model.createdAt,
@@ -40,10 +40,14 @@ class OrderCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         Text(
           // 2022.09.01
           '${orderDate.year}.${orderDate.month.toString().padLeft(2, '0')}.${orderDate.day.toString().padLeft(2, '0')} 주문완료',
+        ),
+        const SizedBox(
+          width: 8.0,
         ),
         Row(
           children: [
@@ -56,19 +60,24 @@ class OrderCard extends StatelessWidget {
             const SizedBox(
               width: 16.0,
             ),
-            Text(
-              name,
-              style: const TextStyle(
-                color: BODY_TEXT_COLOR,
-                fontSize: 14.0,
-              ),
-            ),
-            Text(
-              '$productDetail $price원',
-              style: const TextStyle(
-                color: BODY_TEXT_COLOR,
-                fontWeight: FontWeight.w300,
-              ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  name,
+                  style: const TextStyle(
+                    color: BODY_TEXT_COLOR,
+                    fontSize: 14.0,
+                  ),
+                ),
+                Text(
+                  '$productDetail $price원',
+                  style: const TextStyle(
+                    color: BODY_TEXT_COLOR,
+                    fontWeight: FontWeight.w300,
+                  ),
+                )
+              ],
             )
           ],
         )
