@@ -6,7 +6,7 @@ import '../../user/provider/basket_provider.dart';
 import '../model/post_order_body.dart';
 import 'package:uuid/uuid.dart';
 
-final OrderProvider =
+final orderProvider =
     StateNotifierProvider<OrderStateNotifier, List<OrderModel>>((ref) {
   final repo = ref.watch(OrderRepositoryProvider);
 
@@ -38,7 +38,7 @@ class OrderStateNotifier extends StateNotifier<List<OrderModel>> {
                     productId: e.product.id, count: e.count),
               )
               .toList(),
-          totalPrice: state.fold(
+          totalPrice: state.fold<int>(
             0,
             (p, n) => p + n.count * n.product.price,
           ),
