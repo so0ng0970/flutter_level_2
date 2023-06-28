@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_level_2/common/restaurant/view/basket_screen.dart';
-import 'package:flutter_level_2/common/restaurant/view/order_done_screen.dart';
-import 'package:flutter_level_2/common/restaurant/view/restaurant_detail_screen.dart';
+
 import 'package:flutter_level_2/common/view/root_tab.dart';
 import 'package:flutter_level_2/common/view/splash_screen.dart';
+import 'package:flutter_level_2/restaurant/view/restaurant_detail_screen.dart';
 import 'package:flutter_level_2/user/model/user_model.dart';
 import 'package:flutter_level_2/user/provider/user_me_provider.dart';
 import 'package:flutter_level_2/user/view/login_screen.dart';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+
+import '../../restaurant/view/basket_screen.dart';
+import '../../restaurant/view/order_done_screen.dart';
 
 final authProvider = ChangeNotifierProvider<AuthProvider>((ref) {
   return AuthProvider(ref: ref);

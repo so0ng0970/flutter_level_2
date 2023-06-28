@@ -4,10 +4,11 @@ import 'package:flutter_level_2/common/dio/custom_interceptor.dart';
 import 'package:flutter_level_2/common/model/cursor_pagination_model.dart';
 import 'package:flutter_level_2/common/model/pagination_params.dart';
 import 'package:flutter_level_2/common/repository/base_pagination_repository.dart';
-import 'package:flutter_level_2/common/restaurant/model/restaurant_detail_model.dart';
-import 'package:flutter_level_2/common/restaurant/model/restaurant_model.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:retrofit/retrofit.dart';
+
+import '../model/restaurant_detail_model.dart';
+import '../model/restaurant_model.dart';
 
 part 'restaurant_repository.g.dart';
 

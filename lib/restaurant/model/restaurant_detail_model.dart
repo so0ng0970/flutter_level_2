@@ -1,5 +1,5 @@
-import 'package:flutter_level_2/common/restaurant/model/restaurant_model.dart';
 import 'package:flutter_level_2/common/utils/data_utils.dart';
+import 'package:flutter_level_2/restaurant/model/restaurant_model.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'restaurant_detail_model.g.dart';

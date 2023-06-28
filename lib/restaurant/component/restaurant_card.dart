@@ -2,8 +2,8 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_level_2/common/const/color.dart';
-import 'package:flutter_level_2/common/restaurant/model/restaurant_detail_model.dart';
-import 'package:flutter_level_2/common/restaurant/model/restaurant_model.dart';
+import 'package:flutter_level_2/restaurant/model/restaurant_detail_model.dart';
+import 'package:flutter_level_2/restaurant/model/restaurant_model.dart';
 
 class RestaurantCard extends StatelessWidget {
   // 이미지

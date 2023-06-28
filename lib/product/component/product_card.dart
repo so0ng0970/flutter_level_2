@@ -2,8 +2,8 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_level_2/common/const/color.dart';
-import 'package:flutter_level_2/common/restaurant/model/restaurant_detail_model.dart';
 import 'package:flutter_level_2/product/model/product_model.dart';
+import 'package:flutter_level_2/restaurant/model/restaurant_detail_model.dart';
 import 'package:flutter_level_2/user/provider/basket_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
