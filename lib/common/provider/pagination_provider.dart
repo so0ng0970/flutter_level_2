@@ -1,13 +1,39 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:debounce_throttle/debounce_throttle.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import 'package:flutter_level_2/common/model/cursor_pagination_model.dart';
 import 'package:flutter_level_2/common/model/model_with_id.dart';
 import 'package:flutter_level_2/common/model/pagination_params.dart';
 import 'package:flutter_level_2/common/repository/base_pagination_repository.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+class _PaginationInfo {
+  final int fetchCount;
+  // true
+  // 추가로 데이터 더 가져오기
+  // false - 새로고침 (현재 상태를 덮어씌움)
+  final bool fetchMore;
+  // 강제로 다시 로딩하기
+  // true -CursorPaginationLoading()
+  final bool forceRefech;
+
+  _PaginationInfo({
+    this.fetchCount = 20,
+    this.fetchMore = false,
+    this.forceRefech = false,
+  });
+}
 
 class PaginationProvider<T extends IModelWithId,
         U extends IBasePaginationRepository<T>>
     extends StateNotifier<CursorPaginationBase> {
   final U repository;
+
+  final paginationThrottle = Throttle(
+    const Duration(seconds: 3),
+    initialValue: _PaginationInfo(),
+    checkEquality: false,
+  );
 
   PaginationProvider({
     required this.repository,
@@ -15,6 +41,12 @@ class PaginationProvider<T extends IModelWithId,
           CursorPaginationLoading(),
         ) {
     paginate();
+
+    paginationThrottle.values.listen(
+      (state) {
+        _throttlePagination(state);
+      },
+    );
   }
 
   Future<void> paginate({
@@ -27,6 +59,18 @@ class PaginationProvider<T extends IModelWithId,
     // true -CursorPaginationLoading()
     bool forceRefech = false,
   }) async {
+    paginationThrottle.setValue(_PaginationInfo(
+      fetchMore: fetchMore,
+      fetchCount: fetchCount,
+      forceRefech: forceRefech,
+    ));
+  }
+
+  _throttlePagination(_PaginationInfo info) async {
+    final fetchCount = info.fetchCount;
+    final fetchMore = info.fetchMore;
+    final forceRefech = info.forceRefech;
+
     try {
       // 5가지 가능성
       // State의 상태
