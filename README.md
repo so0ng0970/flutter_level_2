@@ -1,16 +1,16 @@
-# flutter_level_2
+# delivery app 
 
-A new Flutter project.
+dio  
+flutter_secure_storage  
+retrofit  
+flutter_riverpod  
+go_router  
 
-## Getting Started
+-------------------------
 
-This project is a starting point for a Flutter application.
+debounce & throttle
+특정 함수의 실행을 제한하는 목적을 두고 있다   
+debounce는 특정 기간안의 함수 실행을 모두 취소하고 마지막에만 실행한다  
+throttle은 함수 실행 후 특정 기간동안의 추가 실행을 모두 취소한다  
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
