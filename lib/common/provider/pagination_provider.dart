@@ -32,6 +32,8 @@ class PaginationProvider<T extends IModelWithId,
   final paginationThrottle = Throttle(
     const Duration(seconds: 3),
     initialValue: _PaginationInfo(),
+    // checkEquality: 함수 실행할때 넣는 값이 똑같으면 실행하지 않을거냐?
+    // (false: 함수를 실행할때마다 throttle 걸리게));
     checkEquality: false,
   );
 
